@@ -1,0 +1,115 @@
+For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.
+
+By default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.
+
+Use icons from lucide-react for logos.
+
+Separate commit by each change.
+
+Separate static data from program source code and place in dedicated directory.
+
+Do not change more than absolutely necessary.
+
+Only make the change that is absolutely necessary. Make the change smallest.
+
+Don't break existing codebase if it isn't absolutely necessary.
+
+Create a online course web platform that:
+
+* Cheap maintenance cost
+* User friendly UI
+* Multiple type of course
+    * Studying, only the lecture
+    * CTF style
+    * build your own code and test it by integration tests prepared before hand
+      ** Manage code using personal Github repo
+* Easy to manage learning progress, on-going courses
+* Easy to add a online course by authenticated service provider
+* Category tag of courses
+* Share progress with friends
+* Q&A thread for each lesson
+* CUI client supported
+* Compatibility with markdown, github pages, etc
+* Weekly challenge
+    * weekly exercise
+    * In future
+      * bounty paid from company
+      * opportunity to get a job
+* Event dashboard
+
+#### **1. Basic: Frontend & Core Setup**
+
+*   **Build Tool:** Use Vite for project setup.
+*   **Routing:** Use **React Router** for client-side routing.
+*   **Data Fetching & State:**
+    *   Use **TanStack Query (React Query)** for all server-state management, including data fetching, caching, and mutations.
+    *   Use **Zustand** for simple global client-state management.
+*   **Code Quality:** Configure ESLint and Prettier for code linting and formatting.
+*   **React Component Guidelines:**
+    *   **Component Structure & Organization:**
+        *   **Feature-Based Grouping:** Organize files by feature, not by type.Create a `components/` directory for shared, reusable UI elements (e.g., `Button`, `Modal`) and a `features/` directory for feature-specific logic and components (e.g., `features/course-viewer/`, `features/user-profile/`).This keeps related files co-located.
+        *   **Component Folders:** Each significant component should reside in its own folder containing the component file (`index.tsx`), a stylesheet (`styles.module.css`), and tests (`test.tsx`).
+        *   **Single Responsibility Principle:** A component should ideally do only one thing. If a component becomes too large or handles multiple concerns, decompose it into smaller, focused subcomponents.
+    *   **Component Design Patterns:**
+        *   **Container/Presentational Pattern:** Separate components into "smart" containers that manage logic (data fetching, state) and "dumb" presentational components that only render the UI based on props they receive.
+        *   **Custom Hooks:** Extract reusable stateful logic into custom hooks (e.g., `useCourseData`, `useAuthStatus`). Custom hooks must be prefixed with `use` and should be focused on a single piece of functionality.
+        *   **Compound Components:** For complex, related components like a custom `Tabs` or `Accordion`, use the compound components pattern. This pattern uses React Context to implicitly share state between a parent and its children, creating a flexible and expressive API.
+    *   **State Management within Components:**
+        *   **Local State First:** Default to using local component state (`useState`). Lift state up to the nearest common ancestor component only when multiple components need to share it.
+        *   **Group Related State:** If two or more state variables always change together, combine them into a single state object or use a reducer (`useReducer`) for more complex state transitions.
+        *   **Avoid Redundant State:** Do not store data in state if it can be calculated from existing props or state during the render cycle.
+    *   **Performance Optimization:**
+        *   **Memoization:** Use `React.memo` to prevent unnecessary re-renders of components whose props have not changed. Use `useCallback` to memoize functions passed as props and `useMemo` for expensive calculations to avoid re-computation on every render.
+        *   **Lazy Loading:** Use `React.lazy` and `Suspense` to code-split the application. This loads components only when they are needed, which improves the initial page load time.
+        *   **List Virtualization:** For rendering long lists of data, use a library like `react-virtualized` to render only the items currently visible in the viewport, which prevents performance issues.
+
+#### **2. Authentication: Supabase Auth**
+
+*   **Provider:** Use the **Supabase Auth** client (`@supabase/auth-helpers-react`) for all authentication functionalities.
+*   **Auth Methods:** Implement the following authentication flows:
+    *   **Email/Password:** Standard user sign-up and sign-in. Enforce strong password policies in Supabase settings (e.g., minimum length, complexity, and checking against leaked passwords).
+    *   **Social Logins:** Integrate one-click sign-in with **Google** and **GitHub** using OAuth.
+    *   **Magic Links:** Provide a passwordless sign-in option where users receive a secure, one-time login link via email.
+*   **Session Management:**
+    *   Supabase manages sessions using **JWTs**. Ensure the client is configured to handle token refreshes automatically.
+    *   For server-side rendering (SSR) or protected API routes, use the `@supabase/ssr` package to securely manage sessions and tokens in cookies, not `localStorage`.
+*   **Authorization (RBAC):**
+    *   Implement **Role-Based Access Control (RBAC)** using Supabase's custom claims and Row Level Security (RLS).
+    *   Create a `user_roles` table to assign roles (e.g., `student`, `instructor`, `admin`) to users.
+    *   Use a Postgres function triggered on new user creation to assign a default role (`student`).
+    *   Create a Supabase Edge Function or use a Custom Access Token Hook to add the user's role as a custom claim into their JWT upon login.
+
+Centralize the Supabase client. Create a single, exported instance in a file like src/lib/supabaseClient.ts to be used throughout the application.
+
+#### **3. Storage: Supabase Database & Storage**
+
+*   **Database (PostgreSQL):**
+    *   Generate a database schema with the following core tables:
+        *   `profiles`: Stores user data, linked to `auth.users` via a one-to-one relationship.
+        *   `courses`: Contains course information (title, description, instructor\_id).
+        *   `enrollments`: A junction table linking `profiles` and `courses` to track student enrollments.
+        *   `modules`: Course content modules, linked to a `course_id`.
+        *   `lessons`: Individual lessons within a module, which can be text, video, or quiz content.
+*   **Data Security (Row Level Security):**
+    *   Enable **Row Level Security (RLS)** on ALL tables by default.
+    *   Create RLS policies that use the custom role claim from the JWT to control data access. Examples:
+        *   **SELECT:** A user can only read their own `profiles` data. A `student` can only read `courses` they are enrolled in. An `instructor` can read all data for courses they own.
+        *   **INSERT:** An authenticated user can only insert into the `enrollments` table for their own user ID.
+        *   **UPDATE:** An `instructor` can only update `courses` where their ID matches `instructor_id`.
+*   **File & Media Storage:**
+    *   Use **Supabase Storage** for all media files (e.g., course videos, documents, profile pictures).
+    *   Create separate storage buckets for public assets (e.g., course thumbnails) and private assets (e.g., course videos for enrolled students).
+    *   **Upload Flow:** For file uploads, the client should request a presigned URL from Supabase and upload the file directly to the storage bucket. This avoids proxying the file through the application server.
+    *   **Delivery:** Serve all storage assets through the built-in **Supabase CDN** to ensure low-latency delivery worldwide.
+    *   **Security:** Use RLS policies on the `storage.objects` table to control access to files in private buckets, ensuring only authorized users (e.g., enrolled students) can access specific content.
+    *   Prepare sample data and make it easy to add/remove.
+
+***
+
+**Initial Pages & Components:** Generate a basic file structure with placeholder pages for:
+    *   `/login`
+    *   `/signup`
+    *   `/dashboard` (protected route)
+    *   `/courses` (public course catalog)
+    *   `/courses/:id` (course details, protected)
+    *   `/account` (user profile management, protected)
