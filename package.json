@@ -22,7 +22,9 @@
     "react-router-dom": "^6.20.1",
     "zustand": "^4.4.7",
     "lucide-react": "^0.303.0",
-    "clsx": "^2.0.0"
+    "clsx": "^2.0.0",
+    "@fontsource/inter": "^5.0.16",
+    "react-hook-form": "^7.48.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
