@@ -3,20 +3,35 @@ import { useParams, Link } from 'react-router-dom';
 import { Clock, Users, Star, Play, CheckCircle, Lock, ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { mockCourses, mockModules, mockLessons } from '@/data/mock-courses';
+import { useCourse } from '@/hooks/use-courses';
+import { useEnrollment, useEnrollInCourse } from '@/hooks/use-enrollments';
+import { mockModules, mockLessons } from '@/data/mock-courses';
 import { useAuth } from '@/hooks/use-auth';
 
 export const CourseDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { isAuthenticated } = useAuth();
-  
-  const course = mockCourses.find(c => c.id === id);
-  const modules = mockModules.filter(m => m.course_id === id);
+  const { data: course, isLoading, error } = useCourse(id!);
+  const { data: enrollment } = useEnrollment(id!);
+  const enrollInCourseMutation = useEnrollInCourse();
+
+  // For mock data, use the mock modules and lessons
+  const modules = course?.modules || mockModules.filter(m => m.course_id === id);
   const lessons = mockLessons.filter(l => 
     modules.some(m => m.id === l.module_id)
   );
 
-  if (!course) {
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-center min-h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !course) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
@@ -24,7 +39,7 @@ export const CourseDetailPage: React.FC = () => {
             Course Not Found
           </h1>
           <p className="text-secondary-600 mb-6">
-            The course you're looking for doesn't exist.
+            {error?.message || "The course you're looking for doesn't exist."}
           </p>
           <Button asChild>
             <Link to="/courses">Browse Courses</Link>
@@ -62,8 +77,13 @@ export const CourseDetailPage: React.FC = () => {
     }
   };
 
-  // Mock enrollment status
-  const isEnrolled = isAuthenticated; // Simplified for demo
+  const isEnrolled = !!enrollment;
+
+  const handleEnroll = () => {
+    if (id) {
+      enrollInCourseMutation.mutate(id);
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -151,7 +171,7 @@ export const CourseDetailPage: React.FC = () => {
                       </div>
                       
                       <div className="divide-y divide-secondary-200">
-                        {moduleLessons.map((lesson, lessonIndex) => (
+                        {moduleLessons.map((lesson) => (
                           <div key={lesson.id} className="p-4 flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary-100">
@@ -213,7 +233,11 @@ export const CourseDetailPage: React.FC = () => {
                     </Link>
                   </Button>
                 ) : (
-                  <Button className="w-full">
+                  <Button 
+                    className="w-full" 
+                    onClick={handleEnroll}
+                    loading={enrollInCourseMutation.isPending}
+                  >
                     Enroll Now
                   </Button>
                 )

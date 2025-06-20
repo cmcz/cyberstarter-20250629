@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { Clock, Users, Star, Filter } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { mockCourses } from '@/data/mock-courses';
-import type { Course, CourseCategory, DifficultyLevel } from '@/types';
+import { useCourses } from '@/hooks/use-courses';
+import type { CourseCategory, DifficultyLevel } from '@/types';
 
 export const CoursesPage: React.FC = () => {
+  const { data: courses = [], isLoading, error } = useCourses();
   const [selectedCategory, setSelectedCategory] = React.useState<CourseCategory | 'all'>('all');
   const [selectedDifficulty, setSelectedDifficulty] = React.useState<DifficultyLevel | 'all'>('all');
 
@@ -26,7 +27,7 @@ export const CoursesPage: React.FC = () => {
     { value: 'advanced', label: 'Advanced' },
   ];
 
-  const filteredCourses = mockCourses.filter((course) => {
+  const filteredCourses = courses.filter((course) => {
     const categoryMatch = selectedCategory === 'all' || course.category === selectedCategory;
     const difficultyMatch = selectedDifficulty === 'all' || course.difficulty_level === selectedDifficulty;
     return categoryMatch && difficultyMatch;
@@ -48,6 +49,34 @@ export const CoursesPage: React.FC = () => {
         return 'text-secondary-600 bg-secondary-100';
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-center min-h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-secondary-900 mb-4">
+            Error Loading Courses
+          </h1>
+          <p className="text-secondary-600 mb-6">
+            {error.message}
+          </p>
+          <Button onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
