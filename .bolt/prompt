@@ -12,6 +12,8 @@ Do not change more than absolutely necessary.
 
 Only make the change that is absolutely necessary. Make the change smallest.
 
+prepare mock data in dedicated directory, and configure its usage with environment variable
+
 Don't break existing codebase if it isn't absolutely necessary.
 
 Create a online course web platform that:
