@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Play, FileText, HelpCircle, Code, CheckCircle, Clock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { useCourse } from '@/hooks/use-courses';
 import { useEnrollment } from '@/hooks/use-enrollments';
 import { getModulesByCourseId, getLessonsByModuleId, getQuizQuestionsByLessonId } from '@/data/mock-course-content';
@@ -229,14 +230,9 @@ export const LessonViewerPage: React.FC = () => {
   );
 
   const renderTextContent = () => (
-    <div className="prose prose-lg max-w-none">
-      <div 
-        className="whitespace-pre-wrap"
-        dangerouslySetInnerHTML={{ 
-          __html: currentLesson.content_text?.replace(/\n/g, '<br>') || 'No content available.' 
-        }}
-      />
-    </div>
+    <MarkdownRenderer 
+      content={currentLesson.content_text || 'No content available.'} 
+    />
   );
 
   const renderVideoContent = () => (
@@ -251,14 +247,7 @@ export const LessonViewerPage: React.FC = () => {
         </div>
       </div>
       {currentLesson.content_text && (
-        <div className="prose prose-lg max-w-none">
-          <div 
-            className="whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ 
-              __html: currentLesson.content_text.replace(/\n/g, '<br>') 
-            }}
-          />
-        </div>
+        <MarkdownRenderer content={currentLesson.content_text} />
       )}
     </div>
   );
@@ -275,14 +264,7 @@ export const LessonViewerPage: React.FC = () => {
         </p>
       </div>
       {currentLesson.content_text && (
-        <div className="prose prose-lg max-w-none">
-          <div 
-            className="whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ 
-              __html: currentLesson.content_text.replace(/\n/g, '<br>') 
-            }}
-          />
-        </div>
+        <MarkdownRenderer content={currentLesson.content_text} />
       )}
     </div>
   );
