@@ -108,6 +108,8 @@ export const mockCourses: Course[] = [
     created_at: '2024-01-08T13:10:00Z',
     updated_at: '2024-01-08T13:10:00Z',
     enrollment_count: 445,
+    rating: 4.5,
+  },
   {
     id: '7',
     title: 'Make Your Own: System Programming Challenges',
@@ -125,8 +127,6 @@ export const mockCourses: Course[] = [
     updated_at: '2024-01-20T08:00:00Z',
     enrollment_count: 234,
     rating: 4.9,
-  },
-    rating: 4.5,
   },
 ];
 
