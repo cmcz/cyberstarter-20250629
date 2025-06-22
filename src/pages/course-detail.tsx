@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { useCourse } from '@/hooks/use-courses';
 import { useEnrollment, useEnrollInCourse } from '@/hooks/use-enrollments';
-import { mockModules, mockLessons } from '@/data/mock-courses';
+import { getModulesByCourseId, getLessonsByModuleId } from '@/data/mock-course-content';
 import { useAuth } from '@/hooks/use-auth';
 
 export const CourseDetailPage: React.FC = () => {
@@ -16,10 +16,8 @@ export const CourseDetailPage: React.FC = () => {
   const enrollInCourseMutation = useEnrollInCourse();
 
   // For mock data, use the mock modules and lessons
-  const modules = course?.modules || mockModules.filter(m => m.course_id === id);
-  const lessons = mockLessons.filter(l => 
-    modules.some(m => m.id === l.module_id)
-  );
+  const modules = course?.modules || getModulesByCourseId(id!);
+  const lessons = modules.flatMap(module => getLessonsByModuleId(module.id));
 
   if (isLoading) {
     return (
@@ -172,7 +170,7 @@ export const CourseDetailPage: React.FC = () => {
                       
                       <div className="divide-y divide-secondary-200">
                         {moduleLessons.map((lesson) => (
-                          <div key={lesson.id} className="p-4 flex items-center justify-between">
+                          <div key={lesson.id} className="p-4 flex items-center justify-between hover:bg-secondary-50 transition-colors duration-200">
                             <div className="flex items-center space-x-3">
                               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary-100">
                                 {isEnrolled ? (
@@ -182,9 +180,18 @@ export const CourseDetailPage: React.FC = () => {
                                 )}
                               </div>
                               <div>
-                                <h4 className="font-medium text-secondary-900">
-                                  {lesson.title}
-                                </h4>
+                                {isEnrolled ? (
+                                  <Link
+                                    to={`/courses/${course.id}/lessons/${lesson.id}`}
+                                    className="font-medium text-secondary-900 hover:text-primary-600 transition-colors duration-200"
+                                  >
+                                    {lesson.title}
+                                  </Link>
+                                ) : (
+                                  <h4 className="font-medium text-secondary-900">
+                                    {lesson.title}
+                                  </h4>
+                                )}
                                 <p className="text-sm text-secondary-600">
                                   {lesson.description}
                                 </p>

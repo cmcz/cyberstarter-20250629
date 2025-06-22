@@ -1,4 +1,5 @@
 import type { Course, Module, Lesson } from '@/types';
+import { getAllMockModules, getAllMockLessons } from './mock-course-content';
 
 export const mockCourses: Course[] = [
   {
@@ -111,79 +112,8 @@ export const mockCourses: Course[] = [
   },
 ];
 
-export const mockModules: Module[] = [
-  {
-    id: 'module-1',
-    course_id: '1',
-    title: 'React Fundamentals',
-    description: 'Learn the core concepts of React including components, props, and state.',
-    order_index: 1,
-    is_published: true,
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z',
-  },
-  {
-    id: 'module-2',
-    course_id: '1',
-    title: 'React Hooks Deep Dive',
-    description: 'Master React hooks including useState, useEffect, useContext, and custom hooks.',
-    order_index: 2,
-    is_published: true,
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z',
-  },
-  {
-    id: 'module-3',
-    course_id: '1',
-    title: 'State Management & Context',
-    description: 'Learn advanced state management patterns and React Context API.',
-    order_index: 3,
-    is_published: true,
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z',
-  },
-];
-
-export const mockLessons: Lesson[] = [
-  {
-    id: 'lesson-1',
-    module_id: 'module-1',
-    title: 'Introduction to React',
-    description: 'What is React and why should you learn it?',
-    content_type: 'video',
-    content_url: 'https://example.com/video1.mp4',
-    duration_minutes: 15,
-    order_index: 1,
-    is_published: true,
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z',
-  },
-  {
-    id: 'lesson-2',
-    module_id: 'module-1',
-    title: 'Creating Your First Component',
-    description: 'Learn how to create and use React components.',
-    content_type: 'video',
-    content_url: 'https://example.com/video2.mp4',
-    duration_minutes: 20,
-    order_index: 2,
-    is_published: true,
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z',
-  },
-  {
-    id: 'lesson-3',
-    module_id: 'module-1',
-    title: 'Props and State Quiz',
-    description: 'Test your understanding of React props and state.',
-    content_type: 'quiz',
-    duration_minutes: 10,
-    order_index: 3,
-    is_published: true,
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z',
-  },
-];
+export const mockModules: Module[] = getAllMockModules();
+export const mockLessons: Lesson[] = getAllMockLessons();
 
 // Environment variable to control mock data usage
 export const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';

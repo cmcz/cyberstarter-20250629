@@ -11,6 +11,7 @@ import { LoginPage } from '@/pages/login';
 import { SignupPage } from '@/pages/signup';
 import { CoursesPage } from '@/pages/courses';
 import { CourseDetailPage } from '@/pages/course-detail';
+import { LessonViewerPage } from '@/pages/lesson-viewer';
 import { DashboardPage } from '@/pages/dashboard';
 import { AccountPage } from '@/pages/account';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:id" element={<CourseDetailPage />} />
+            <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonViewerPage />} />
             
             {/* Protected Routes */}
             <Route
