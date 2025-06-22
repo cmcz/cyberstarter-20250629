@@ -111,6 +111,11 @@ export const useChallengeEnrollment = (challengeId: string) => {
       if (USE_MOCK_DATA) {
         // Return mock enrollment for the challenge
         await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Check if challenge exists in mock data
+        const challengeExists = mockChallenges.some(challenge => challenge.id === challengeId);
+        if (!challengeExists) return null;
+        
         return {
           id: 'challenge-enrollment-1',
           user_id: 'user-1',

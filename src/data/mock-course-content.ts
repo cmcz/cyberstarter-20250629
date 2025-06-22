@@ -4,7 +4,7 @@ import type { Module, Lesson, QuizQuestion } from '@/types';
 export const reactCourseModules: Module[] = [
   {
     id: 'react-module-1',
-    course_id: '1',
+    course_id: 'course-1',
     title: 'React Fundamentals',
     description: 'Learn the core concepts of React including components, props, and state.',
     order_index: 1,
@@ -14,7 +14,7 @@ export const reactCourseModules: Module[] = [
   },
   {
     id: 'react-module-2',
-    course_id: '1',
+    course_id: 'course-1',
     title: 'React Hooks Deep Dive',
     description: 'Master React hooks including useState, useEffect, useContext, and custom hooks.',
     order_index: 2,
@@ -24,7 +24,7 @@ export const reactCourseModules: Module[] = [
   },
   {
     id: 'react-module-3',
-    course_id: '1',
+    course_id: 'course-1',
     title: 'State Management & Context',
     description: 'Learn advanced state management patterns and React Context API.',
     order_index: 3,
@@ -34,7 +34,7 @@ export const reactCourseModules: Module[] = [
   },
   {
     id: 'react-module-4',
-    course_id: '1',
+    course_id: 'course-1',
     title: 'React Router & Navigation',
     description: 'Implement client-side routing and navigation in React applications.',
     order_index: 4,
@@ -271,7 +271,7 @@ useEffect(() => {
 export const ecommerceCourseModules: Module[] = [
   {
     id: 'ecommerce-module-1',
-    course_id: '3',
+    course_id: 'course-2',
     title: 'Project Setup & Architecture',
     description: 'Set up the development environment and plan the application architecture.',
     order_index: 1,
@@ -281,7 +281,7 @@ export const ecommerceCourseModules: Module[] = [
   },
   {
     id: 'ecommerce-module-2',
-    course_id: '3',
+    course_id: 'course-2',
     title: 'Backend API Development',
     description: 'Build RESTful APIs with Node.js, Express, and MongoDB.',
     order_index: 2,
@@ -291,7 +291,7 @@ export const ecommerceCourseModules: Module[] = [
   },
   {
     id: 'ecommerce-module-3',
-    course_id: '3',
+    course_id: 'course-2',
     title: 'Frontend Development',
     description: 'Create a responsive React frontend with modern UI components.',
     order_index: 3,
@@ -301,7 +301,7 @@ export const ecommerceCourseModules: Module[] = [
   },
   {
     id: 'ecommerce-module-4',
-    course_id: '3',
+    course_id: 'course-2',
     title: 'Payment Integration',
     description: 'Integrate Stripe for secure payment processing.',
     order_index: 4,

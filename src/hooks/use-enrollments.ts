@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase, handleSupabaseError, getAuthenticatedUser } from '@/lib/supabase';
 import { useUIStore } from '@/store/ui-store';
-import { USE_MOCK_DATA } from '@/data/mock-courses';
+import { mockCourses, USE_MOCK_DATA } from '@/data/mock-courses';
 import type { Enrollment } from '@/types';
 
 export const useEnrollments = () => {
@@ -15,7 +15,7 @@ export const useEnrollments = () => {
           {
             id: 'enrollment-1',
             user_id: 'user-1',
-            course_id: '1',
+            course_id: 'course-1',
             enrolled_at: '2024-01-15T10:00:00Z',
             progress_percentage: 65,
             last_accessed_lesson_id: 'lesson-2',
@@ -23,7 +23,7 @@ export const useEnrollments = () => {
           {
             id: 'enrollment-2',
             user_id: 'user-1',
-            course_id: '2',
+            course_id: 'challenge-1',
             enrolled_at: '2024-01-10T14:30:00Z',
             progress_percentage: 30,
             last_accessed_lesson_id: 'lesson-1',
@@ -55,6 +55,11 @@ export const useEnrollment = (courseId: string) => {
       if (USE_MOCK_DATA) {
         // Return mock enrollment for the course
         await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Check if course exists in mock data
+        const courseExists = mockCourses.some(course => course.id === courseId);
+        if (!courseExists) return null;
+        
         return {
           id: 'enrollment-1',
           user_id: 'user-1',
