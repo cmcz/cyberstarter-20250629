@@ -32,9 +32,9 @@ export const LessonViewerPage: React.FC = () => {
   const allLessons = modules.flatMap(module => 
     getLessonsByModuleId(module.id).map(lesson => ({
       ...lesson,
-  const { data: challenge } = useChallenge(challengeId || '');
-  const { data: enrollment } = useEnrollment(courseId || '');
-  const { data: challengeEnrollment } = useChallengeEnrollment(challengeId || '');
+      moduleTitle: module.title
+    }))
+  );
   
   const currentLessonIndex = allLessons.findIndex(lesson => lesson.id === lessonId);
   const currentLesson = allLessons[currentLessonIndex];
