@@ -12,6 +12,8 @@ import { SignupPage } from '@/pages/signup';
 import { CoursesPage } from '@/pages/courses';
 import { CourseDetailPage } from '@/pages/course-detail';
 import { LessonViewerPage } from '@/pages/lesson-viewer';
+import { ChallengesPage } from '@/pages/challenges';
+import { ChallengeDetailPage } from '@/pages/challenge-detail';
 import { DashboardPage } from '@/pages/dashboard';
 import { AccountPage } from '@/pages/account';
 
@@ -34,6 +36,9 @@ function App() {
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:id" element={<CourseDetailPage />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonViewerPage />} />
+            <Route path="/challenges" element={<ChallengesPage />} />
+            <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
+            <Route path="/challenges/:challengeId/lessons/:lessonId" element={<LessonViewerPage />} />
             
             {/* Protected Routes */}
             <Route

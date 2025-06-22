@@ -184,14 +184,51 @@ export interface WeeklyChallenge {
   id: string;
   title: string;
   description: string;
+  thumbnail_url?: string;
+  category: ChallengeCategory;
+  type: ChallengeType;
   difficulty_level: DifficultyLevel;
-  category: CourseCategory;
   start_date: string;
   end_date: string;
   prize_amount?: number;
   max_participants?: number;
   is_active: boolean;
+  tags: string[];
+  enrollment_count?: number;
+  rating?: number;
   created_at: string;
+  updated_at: string;
+}
+
+export type ChallengeType = 'ctf' | 'make_your_own' | 'algorithm' | 'debugging';
+export type ChallengeCategory = 
+  | 'cybersecurity' 
+  | 'systems-programming' 
+  | 'web-security' 
+  | 'cryptography' 
+  | 'reverse-engineering' 
+  | 'network-security' 
+  | 'binary-exploitation'
+  | 'other';
+
+export interface Challenge {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail_url?: string;
+  instructor_id: string;
+  instructor?: User;
+  category: ChallengeCategory;
+  type: ChallengeType;
+  difficulty_level: DifficultyLevel;
+  duration_hours?: number;
+  is_published: boolean;
+  tags: string[];
+  created_at: string;
+  updated_at: string;
+  enrollment_count?: number;
+  rating?: number;
+  modules?: Module[];
 }
 
 export interface ChallengeSubmission {
