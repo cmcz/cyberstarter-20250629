@@ -172,6 +172,7 @@ export const useEnrollInChallenge = () => {
       return data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['challenge-enrollment'] });
       queryClient.invalidateQueries({ queryKey: ['challenge-enrollments'] });
       addNotification({
         type: 'success',
