@@ -6,18 +6,33 @@ import { Button } from '@/components/ui/button';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { CodeChallengeViewer } from '@/components/ui/code-challenge-viewer';
 import { useCourse } from '@/hooks/use-courses';
+import { useChallenge } from '@/hooks/use-challenges';
 import { useEnrollment } from '@/hooks/use-enrollments';
+import { useChallengeEnrollment } from '@/hooks/use-challenges';
 import { useCodeChallenge, useCodeSubmission, useSubmitCodeChallenge } from '@/hooks/use-code-challenges';
 import { getModulesByCourseId, getLessonsByModuleId, getQuizQuestionsByLessonId } from '@/data/mock-course-content';
+import { getChallengeModulesByChallengeId, getChallengeLessonsByModuleId } from '@/data/mock-challenges';
 import { useAuth } from '@/hooks/use-auth';
 import type { Lesson, QuizQuestion } from '@/types';
 
 export const LessonViewerPage: React.FC = () => {
-  const { courseId, lessonId } = useParams<{ courseId: string; lessonId: string }>();
+  const { courseId, challengeId, lessonId } = useParams<{ 
+    courseId?: string; 
+    challengeId?: string; 
+    lessonId: string; 
+  }>();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  const { data: course } = useCourse(courseId!);
-  const { data: enrollment } = useEnrollment(courseId!);
+  
+  // Determine if this is a course or challenge
+  const isChallenge = !!challengeId;
+  const contentId = courseId || challengeId;
+  
+  const { data: course } = useCourse(courseId!, { enabled: !!courseId });
+  const { data: challenge } = useChallenge(challengeId!, { enabled: !!challengeId });
+  const { data: enrollment } = useEnrollment(courseId!, { enabled: !!courseId });
+  const { data: challengeEnrollment } = useChallengeEnrollment(challengeId!, { enabled: !!challengeId });
+  
   const { data: codeChallenge } = useCodeChallenge(lessonId!);
   const { data: codeSubmission } = useCodeSubmission(
     codeChallenge?.id || '', 
@@ -27,10 +42,17 @@ export const LessonViewerPage: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = React.useState<Record<string, string>>({});
   const [showResults, setShowResults] = React.useState(false);
 
-  // Get course content
-  const modules = course?.modules || getModulesByCourseId(courseId!);
+  // Get content based on type
+  const modules = isChallenge 
+    ? challenge?.modules || getChallengeModulesByChallengeId(challengeId!)
+    : course?.modules || getModulesByCourseId(courseId!);
+    
+  const getLessonsByModule = isChallenge 
+    ? getChallengeLessonsByModuleId 
+    : getLessonsByModuleId;
+    
   const allLessons = modules.flatMap(module => 
-    getLessonsByModuleId(module.id).map(lesson => ({
+    getLessonsByModule(module.id).map(lesson => ({
       ...lesson,
       moduleTitle: module.title
     }))
@@ -55,7 +77,11 @@ export const LessonViewerPage: React.FC = () => {
     }
   };
 
-  if (!isAuthenticated || !enrollment) {
+  const currentEnrollment = isChallenge ? challengeEnrollment : enrollment;
+  const contentTitle = isChallenge ? challenge?.title : course?.title;
+  const backPath = isChallenge ? `/challenges/${challengeId}` : `/courses/${courseId}`;
+
+  if (!isAuthenticated || !currentEnrollment) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
@@ -63,10 +89,10 @@ export const LessonViewerPage: React.FC = () => {
             Access Denied
           </h1>
           <p className="text-secondary-600 mb-6">
-            You need to be enrolled in this course to view lessons.
+            You need to be enrolled in this {isChallenge ? 'challenge' : 'course'} to view lessons.
           </p>
           <Button asChild>
-            <Link to={`/courses/${courseId}`}>Back to Course</Link>
+            <Link to={backPath}>Back to {isChallenge ? 'Challenge' : 'Course'}</Link>
           </Button>
         </div>
       </div>
@@ -84,7 +110,7 @@ export const LessonViewerPage: React.FC = () => {
             The lesson you're looking for doesn't exist.
           </p>
           <Button asChild>
-            <Link to={`/courses/${courseId}`}>Back to Course</Link>
+            <Link to={backPath}>Back to {isChallenge ? 'Challenge' : 'Course'}</Link>
           </Button>
         </div>
       </div>
@@ -317,9 +343,9 @@ export const LessonViewerPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm" asChild>
-                <Link to={`/courses/${courseId}`}>
+                <Link to={backPath}>
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Course
+                  Back to {isChallenge ? 'Challenge' : 'Course'}
                 </Link>
               </Button>
               <div>
@@ -373,7 +399,7 @@ export const LessonViewerPage: React.FC = () => {
             <div className="flex items-center justify-between mt-8">
               {previousLesson ? (
                 <Button variant="outline" asChild>
-                  <Link to={`/courses/${courseId}/lessons/${previousLesson.id}`}>
+                  <Link to={`${isChallenge ? '/challenges' : '/courses'}/${contentId}/lessons/${previousLesson.id}`}>
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Previous: {previousLesson.title}
                   </Link>
@@ -384,16 +410,16 @@ export const LessonViewerPage: React.FC = () => {
 
               {nextLesson ? (
                 <Button asChild>
-                  <Link to={`/courses/${courseId}/lessons/${nextLesson.id}`}>
+                  <Link to={`${isChallenge ? '/challenges' : '/courses'}/${contentId}/lessons/${nextLesson.id}`}>
                     Next: {nextLesson.title}
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>
               ) : (
                 <Button variant="outline" asChild>
-                  <Link to={`/courses/${courseId}`}>
+                  <Link to={backPath}>
                     <CheckCircle className="h-4 w-4 mr-2" />
-                    Course Complete
+                    {isChallenge ? 'Challenge' : 'Course'} Complete
                   </Link>
                 </Button>
               )}
@@ -404,7 +430,7 @@ export const LessonViewerPage: React.FC = () => {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Course Progress</CardTitle>
+                <CardTitle className="text-lg">{isChallenge ? 'Challenge' : 'Course'} Progress</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -431,7 +457,7 @@ export const LessonViewerPage: React.FC = () => {
                       {allLessons.map((lesson, index) => (
                         <Link
                           key={lesson.id}
-                          to={`/courses/${courseId}/lessons/${lesson.id}`}
+                          to={`${isChallenge ? '/challenges' : '/courses'}/${contentId}/lessons/${lesson.id}`}
                           className={`block p-2 rounded-lg text-sm transition-colors duration-200 ${
                             lesson.id === lessonId
                               ? 'bg-primary-100 text-primary-700 border border-primary-200'
