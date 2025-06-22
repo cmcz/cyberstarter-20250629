@@ -92,6 +92,25 @@ export const mockCourses: Course[] = [
     enrollment_count: 445,
     rating: 4.5,
   },
+  // Demo free course
+  {
+    id: 'demo-course-1',
+    title: 'Introduction to Web Development',
+    description: 'A free introductory course covering HTML, CSS, and JavaScript basics. Perfect for beginners starting their web development journey.',
+    thumbnail_url: 'https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg?auto=compress&cs=tinysrgb&w=800',
+    instructor_id: '77777777-7777-7777-7777-777777777777',
+    category: 'web-development',
+    type: 'lecture',
+    difficulty_level: 'beginner',
+    duration_hours: 8,
+    price: 0,
+    is_published: true,
+    tags: ['html', 'css', 'javascript', 'beginner', 'free'],
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+    enrollment_count: 3420,
+    rating: 4.9,
+  },
 ];
 
 export const mockModules: Module[] = getAllMockModules();

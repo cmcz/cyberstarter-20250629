@@ -311,6 +311,592 @@ export const ecommerceCourseModules: Module[] = [
   },
 ];
 
+// Demo course modules
+export const demoCourseModules: Module[] = [
+  {
+    id: 'demo-module-1',
+    course_id: 'demo-course-1',
+    title: 'HTML Fundamentals',
+    description: 'Learn the building blocks of web pages with HTML.',
+    order_index: 1,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-module-2',
+    course_id: 'demo-course-1',
+    title: 'CSS Styling',
+    description: 'Style your web pages with CSS and make them beautiful.',
+    order_index: 2,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-module-3',
+    course_id: 'demo-course-1',
+    title: 'JavaScript Basics',
+    description: 'Add interactivity to your web pages with JavaScript.',
+    order_index: 3,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+];
+
+export const demoCourseLessons: Lesson[] = [
+  // HTML Module Lessons
+  {
+    id: 'demo-lesson-1',
+    module_id: 'demo-module-1',
+    title: 'What is HTML?',
+    description: 'Introduction to HTML and its role in web development.',
+    content_type: 'text',
+    content_text: `# What is HTML?
+
+HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page using markup.
+
+## Key Concepts
+
+- **Elements**: The building blocks of HTML pages
+- **Tags**: Keywords surrounded by angle brackets
+- **Attributes**: Additional information about elements
+- **Structure**: How elements are organized
+
+## Basic HTML Structure
+
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+<body>
+    <h1>My First Heading</h1>
+    <p>My first paragraph.</p>
+</body>
+</html>
+\`\`\`
+
+## Common HTML Elements
+
+- \`<h1>\` to \`<h6>\`: Headings
+- \`<p>\`: Paragraphs
+- \`<a>\`: Links
+- \`<img>\`: Images
+- \`<div>\`: Containers
+- \`<span>\`: Inline containers
+
+HTML is the foundation of all web pages. Every website you visit uses HTML to structure its content!`,
+    duration_minutes: 15,
+    order_index: 1,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-lesson-2',
+    module_id: 'demo-module-1',
+    title: 'HTML Elements and Tags',
+    description: 'Learn about different HTML elements and how to use them.',
+    content_type: 'text',
+    content_text: `# HTML Elements and Tags
+
+HTML elements are the building blocks of HTML pages. An HTML element is defined by a start tag, some content, and an end tag.
+
+## Element Syntax
+
+\`\`\`html
+<tagname>Content goes here...</tagname>
+\`\`\`
+
+## Common HTML Elements
+
+### Headings
+\`\`\`html
+<h1>This is heading 1</h1>
+<h2>This is heading 2</h2>
+<h3>This is heading 3</h3>
+\`\`\`
+
+### Paragraphs
+\`\`\`html
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+\`\`\`
+
+### Links
+\`\`\`html
+<a href="https://www.example.com">This is a link</a>
+\`\`\`
+
+### Images
+\`\`\`html
+<img src="image.jpg" alt="Description of image">
+\`\`\`
+
+### Lists
+\`\`\`html
+<!-- Unordered List -->
+<ul>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ul>
+
+<!-- Ordered List -->
+<ol>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ol>
+\`\`\`
+
+## Attributes
+
+HTML elements can have attributes that provide additional information:
+
+- \`href\`: Specifies the URL for links
+- \`src\`: Specifies the source for images
+- \`alt\`: Provides alternative text for images
+- \`class\`: Specifies CSS classes
+- \`id\`: Provides a unique identifier
+
+Understanding these basic elements will help you create structured, semantic web pages!`,
+    duration_minutes: 20,
+    order_index: 2,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-lesson-3',
+    module_id: 'demo-module-1',
+    title: 'HTML Knowledge Check',
+    description: 'Test your understanding of HTML basics.',
+    content_type: 'quiz',
+    duration_minutes: 10,
+    order_index: 3,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  // CSS Module Lessons
+  {
+    id: 'demo-lesson-4',
+    module_id: 'demo-module-2',
+    title: 'Introduction to CSS',
+    description: 'Learn what CSS is and how it styles web pages.',
+    content_type: 'text',
+    content_text: `# Introduction to CSS
+
+CSS (Cascading Style Sheets) is used to style and layout web pages. It controls how HTML elements are displayed.
+
+## What CSS Does
+
+- **Colors**: Set text and background colors
+- **Fonts**: Choose font families, sizes, and weights
+- **Layout**: Position elements on the page
+- **Spacing**: Control margins and padding
+- **Responsive Design**: Make pages work on all devices
+
+## CSS Syntax
+
+\`\`\`css
+selector {
+    property: value;
+    property: value;
+}
+\`\`\`
+
+## Example
+
+\`\`\`css
+h1 {
+    color: blue;
+    font-size: 24px;
+    text-align: center;
+}
+
+p {
+    color: #333;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+\`\`\`
+
+## Adding CSS to HTML
+
+### Inline CSS
+\`\`\`html
+<h1 style="color: blue;">Hello World</h1>
+\`\`\`
+
+### Internal CSS
+\`\`\`html
+<head>
+    <style>
+        h1 { color: blue; }
+    </style>
+</head>
+\`\`\`
+
+### External CSS (Recommended)
+\`\`\`html
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+\`\`\`
+
+CSS transforms plain HTML into beautiful, professional-looking websites!`,
+    duration_minutes: 18,
+    order_index: 1,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-lesson-5',
+    module_id: 'demo-module-2',
+    title: 'CSS Selectors and Properties',
+    description: 'Master CSS selectors and common properties.',
+    content_type: 'text',
+    content_text: `# CSS Selectors and Properties
+
+CSS selectors are used to target HTML elements for styling. Different selectors give you different ways to select elements.
+
+## Basic Selectors
+
+### Element Selector
+\`\`\`css
+p {
+    color: blue;
+}
+\`\`\`
+
+### Class Selector
+\`\`\`css
+.highlight {
+    background-color: yellow;
+}
+\`\`\`
+
+### ID Selector
+\`\`\`css
+#header {
+    font-size: 24px;
+}
+\`\`\`
+
+## Common CSS Properties
+
+### Text Properties
+\`\`\`css
+.text-style {
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline;
+}
+\`\`\`
+
+### Background Properties
+\`\`\`css
+.background-style {
+    background-color: #f0f0f0;
+    background-image: url('image.jpg');
+    background-size: cover;
+    background-position: center;
+}
+\`\`\`
+
+### Box Model Properties
+\`\`\`css
+.box-style {
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+    margin: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+\`\`\`
+
+### Layout Properties
+\`\`\`css
+.layout-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+\`\`\`
+
+## Combining Selectors
+
+\`\`\`css
+/* Multiple classes */
+.header.large {
+    font-size: 32px;
+}
+
+/* Descendant selector */
+.container p {
+    margin-bottom: 15px;
+}
+
+/* Hover state */
+button:hover {
+    background-color: #007bff;
+    color: white;
+}
+\`\`\`
+
+Mastering selectors and properties gives you complete control over your website's appearance!`,
+    duration_minutes: 25,
+    order_index: 2,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  // JavaScript Module Lessons
+  {
+    id: 'demo-lesson-6',
+    module_id: 'demo-module-3',
+    title: 'JavaScript Basics',
+    description: 'Introduction to JavaScript programming language.',
+    content_type: 'text',
+    content_text: `# JavaScript Basics
+
+JavaScript is a programming language that adds interactivity to web pages. It can update content, control multimedia, animate images, and much more.
+
+## What JavaScript Can Do
+
+- **Dynamic Content**: Change HTML content and attributes
+- **User Interaction**: Respond to clicks, form submissions, etc.
+- **Animations**: Create smooth transitions and effects
+- **Data Processing**: Calculate, validate, and manipulate data
+- **API Communication**: Fetch data from servers
+
+## JavaScript Syntax
+
+### Variables
+\`\`\`javascript
+// Modern way (recommended)
+let name = "John";
+const age = 25;
+
+// Older way
+var city = "New York";
+\`\`\`
+
+### Data Types
+\`\`\`javascript
+// String
+let message = "Hello World";
+
+// Number
+let count = 42;
+let price = 19.99;
+
+// Boolean
+let isActive = true;
+let isComplete = false;
+
+// Array
+let colors = ["red", "green", "blue"];
+
+// Object
+let person = {
+    name: "Alice",
+    age: 30,
+    city: "Boston"
+};
+\`\`\`
+
+### Functions
+\`\`\`javascript
+// Function declaration
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Function expression
+const add = function(a, b) {
+    return a + b;
+};
+
+// Arrow function (modern)
+const multiply = (a, b) => a * b;
+\`\`\`
+
+## Adding JavaScript to HTML
+
+### Inline JavaScript
+\`\`\`html
+<button onclick="alert('Hello!')">Click me</button>
+\`\`\`
+
+### Internal JavaScript
+\`\`\`html
+<script>
+    console.log("Hello from JavaScript!");
+</script>
+\`\`\`
+
+### External JavaScript (Recommended)
+\`\`\`html
+<script src="script.js"></script>
+\`\`\`
+
+JavaScript brings your web pages to life with dynamic, interactive features!`,
+    duration_minutes: 22,
+    order_index: 1,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-lesson-7',
+    module_id: 'demo-module-3',
+    title: 'DOM Manipulation',
+    description: 'Learn how to interact with HTML elements using JavaScript.',
+    content_type: 'text',
+    content_text: `# DOM Manipulation
+
+The DOM (Document Object Model) represents the HTML document as a tree of objects. JavaScript can change the DOM to update the web page dynamically.
+
+## Selecting Elements
+
+### By ID
+\`\`\`javascript
+const element = document.getElementById("myId");
+\`\`\`
+
+### By Class
+\`\`\`javascript
+const elements = document.getElementsByClassName("myClass");
+const element = document.querySelector(".myClass");
+const allElements = document.querySelectorAll(".myClass");
+\`\`\`
+
+### By Tag
+\`\`\`javascript
+const paragraphs = document.getElementsByTagName("p");
+const firstParagraph = document.querySelector("p");
+\`\`\`
+
+## Changing Content
+
+### Text Content
+\`\`\`javascript
+const heading = document.getElementById("title");
+heading.textContent = "New Title";
+heading.innerHTML = "<strong>Bold Title</strong>";
+\`\`\`
+
+### Attributes
+\`\`\`javascript
+const image = document.querySelector("img");
+image.src = "new-image.jpg";
+image.alt = "New description";
+\`\`\`
+
+### Styles
+\`\`\`javascript
+const box = document.getElementById("box");
+box.style.backgroundColor = "blue";
+box.style.width = "200px";
+box.style.display = "none";
+\`\`\`
+
+## Adding and Removing Elements
+
+### Creating Elements
+\`\`\`javascript
+const newParagraph = document.createElement("p");
+newParagraph.textContent = "This is a new paragraph";
+document.body.appendChild(newParagraph);
+\`\`\`
+
+### Removing Elements
+\`\`\`javascript
+const elementToRemove = document.getElementById("remove-me");
+elementToRemove.remove();
+\`\`\`
+
+## Event Handling
+
+### Click Events
+\`\`\`javascript
+const button = document.getElementById("myButton");
+button.addEventListener("click", function() {
+    alert("Button clicked!");
+});
+\`\`\`
+
+### Form Events
+\`\`\`javascript
+const form = document.getElementById("myForm");
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    console.log("Form submitted!");
+});
+\`\`\`
+
+### Input Events
+\`\`\`javascript
+const input = document.getElementById("myInput");
+input.addEventListener("input", function() {
+    console.log("Input value:", input.value);
+});
+\`\`\`
+
+## Practical Example
+
+\`\`\`javascript
+// Change button text when clicked
+const toggleButton = document.getElementById("toggle");
+let isOn = false;
+
+toggleButton.addEventListener("click", function() {
+    if (isOn) {
+        toggleButton.textContent = "Turn On";
+        toggleButton.style.backgroundColor = "gray";
+    } else {
+        toggleButton.textContent = "Turn Off";
+        toggleButton.style.backgroundColor = "green";
+    }
+    isOn = !isOn;
+});
+\`\`\`
+
+DOM manipulation is the key to creating interactive web applications!`,
+    duration_minutes: 28,
+    order_index: 2,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+  {
+    id: 'demo-lesson-8',
+    module_id: 'demo-module-3',
+    title: 'JavaScript Final Quiz',
+    description: 'Test your JavaScript knowledge.',
+    content_type: 'quiz',
+    duration_minutes: 15,
+    order_index: 3,
+    is_published: true,
+    created_at: '2024-01-01T08:00:00Z',
+    updated_at: '2024-01-01T08:00:00Z',
+  },
+];
+
 export const ecommerceCourseLessons: Lesson[] = [
   {
     id: 'ecommerce-lesson-1',
@@ -526,19 +1112,96 @@ Time to build the foundation of data! 🗄️`,
   },
 ];
 
+// Demo course quiz questions
+export const demoCourseQuizQuestions: QuizQuestion[] = [
+  // HTML Quiz
+  {
+    id: 'demo-quiz-1',
+    lesson_id: 'demo-lesson-3',
+    question: 'What does HTML stand for?',
+    type: 'multiple_choice',
+    options: [
+      'HyperText Markup Language',
+      'High Tech Modern Language',
+      'Home Tool Markup Language',
+      'Hyperlink and Text Markup Language'
+    ],
+    correct_answer: 'HyperText Markup Language',
+    explanation: 'HTML stands for HyperText Markup Language, which is the standard markup language for creating web pages.',
+    order_index: 1,
+  },
+  {
+    id: 'demo-quiz-2',
+    lesson_id: 'demo-lesson-3',
+    question: 'Which HTML element is used for the largest heading?',
+    type: 'multiple_choice',
+    options: ['<h1>', '<h6>', '<heading>', '<header>'],
+    correct_answer: '<h1>',
+    explanation: 'The <h1> element represents the largest heading, while <h6> is the smallest.',
+    order_index: 2,
+  },
+  {
+    id: 'demo-quiz-3',
+    lesson_id: 'demo-lesson-3',
+    question: 'HTML elements must always have closing tags.',
+    type: 'true_false',
+    correct_answer: 'false',
+    explanation: 'Some HTML elements are self-closing (void elements) like <img>, <br>, and <input>.',
+    order_index: 3,
+  },
+  // JavaScript Quiz
+  {
+    id: 'demo-quiz-4',
+    lesson_id: 'demo-lesson-8',
+    question: 'Which keyword is used to declare a constant in JavaScript?',
+    type: 'multiple_choice',
+    options: ['var', 'let', 'const', 'constant'],
+    correct_answer: 'const',
+    explanation: 'The "const" keyword is used to declare constants in JavaScript.',
+    order_index: 1,
+  },
+  {
+    id: 'demo-quiz-5',
+    lesson_id: 'demo-lesson-8',
+    question: 'What does DOM stand for?',
+    type: 'multiple_choice',
+    options: [
+      'Document Object Model',
+      'Data Object Management',
+      'Dynamic Object Method',
+      'Document Oriented Model'
+    ],
+    correct_answer: 'Document Object Model',
+    explanation: 'DOM stands for Document Object Model, which represents the HTML document as a tree of objects.',
+    order_index: 2,
+  },
+  {
+    id: 'demo-quiz-6',
+    lesson_id: 'demo-lesson-8',
+    question: 'JavaScript can only run in web browsers.',
+    type: 'true_false',
+    correct_answer: 'false',
+    explanation: 'JavaScript can run in many environments including web browsers, servers (Node.js), mobile apps, and desktop applications.',
+    order_index: 3,
+  },
+];
+
 // Combine all mock data
 export const getAllMockModules = (): Module[] => [
   ...reactCourseModules,
   ...ecommerceCourseModules,
+  ...demoCourseModules,
 ];
 
 export const getAllMockLessons = (): Lesson[] => [
   ...reactCourseLessons,
   ...ecommerceCourseLessons,
+  ...demoCourseLessons,
 ];
 
 export const getAllMockQuizQuestions = (): QuizQuestion[] => [
   ...reactQuizQuestions,
+  ...demoCourseQuizQuestions,
 ];
 
 // Helper functions to get content by course ID

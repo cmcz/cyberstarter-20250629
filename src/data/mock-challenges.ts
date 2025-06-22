@@ -69,6 +69,42 @@ export const mockChallenges: Challenge[] = [
     enrollment_count: 345,
     rating: 4.8,
   },
+  // Demo challenge
+  {
+    id: 'demo-challenge-1',
+    title: 'JavaScript Fundamentals Challenge',
+    description: 'Test your JavaScript knowledge with practical coding exercises. Build functions, work with arrays, and solve real-world problems.',
+    thumbnail_url: 'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800',
+    instructor_id: '88888888-8888-8888-8888-888888888888',
+    category: 'web-development',
+    type: 'algorithm',
+    difficulty_level: 'beginner',
+    duration_hours: 4,
+    is_published: true,
+    tags: ['javascript', 'algorithms', 'functions', 'arrays', 'beginner'],
+    created_at: '2024-01-03T10:00:00Z',
+    updated_at: '2024-01-03T10:00:00Z',
+    enrollment_count: 1250,
+    rating: 4.7,
+  },
+  // Demo challenge
+  {
+    id: 'demo-challenge-1',
+    title: 'JavaScript Fundamentals Challenge',
+    description: 'Test your JavaScript knowledge with practical coding exercises. Build functions, work with arrays, and solve real-world problems.',
+    thumbnail_url: 'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800',
+    instructor_id: '88888888-8888-8888-8888-888888888888',
+    category: 'web-development',
+    type: 'algorithm',
+    difficulty_level: 'beginner',
+    duration_hours: 4,
+    is_published: true,
+    tags: ['javascript', 'algorithms', 'functions', 'arrays', 'beginner'],
+    created_at: '2024-01-03T10:00:00Z',
+    updated_at: '2024-01-03T10:00:00Z',
+    enrollment_count: 1250,
+    rating: 4.7,
+  },
 ];
 
 // Challenge modules (moved from course content)
@@ -134,6 +170,17 @@ export const challengeModules: Module[] = [
     is_published: true,
     created_at: '2024-01-20T08:00:00Z',
     updated_at: '2024-01-20T08:00:00Z',
+  },
+  // Demo challenge modules
+  {
+    id: 'demo-challenge-module-1',
+    course_id: 'demo-challenge-1',
+    title: 'JavaScript Algorithm Challenges',
+    description: 'Practice JavaScript with algorithm and problem-solving challenges.',
+    order_index: 1,
+    is_published: true,
+    created_at: '2024-01-03T10:00:00Z',
+    updated_at: '2024-01-03T10:00:00Z',
   },
 ];
 
