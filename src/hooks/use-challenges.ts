@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase, handleSupabaseError, getAuthenticatedUser } from '@/lib/supabase';
 import { mockChallenges, USE_MOCK_DATA } from '@/data/mock-challenges';
 import { useUIStore } from '@/store/ui-store';
 import type { Challenge, ChallengeCategory, ChallengeType, DifficultyLevel } from '@/types';
@@ -86,12 +87,15 @@ export const useChallengeEnrollments = () => {
         ];
       }
 
+      const user = await getAuthenticatedUser();
+      
       const { data, error } = await supabase
         .from('challenge_enrollments')
         .select(`
           *,
           challenge:challenges(*)
         `)
+        .eq('user_id', user.id)
         .order('enrolled_at', { ascending: false });
 
       if (error) throw new Error(handleSupabaseError(error));
@@ -117,10 +121,13 @@ export const useChallengeEnrollment = (challengeId: string) => {
         };
       }
 
+      const user = await getAuthenticatedUser();
+      
       const { data, error } = await supabase
         .from('challenge_enrollments')
         .select('*')
         .eq('challenge_id', challengeId)
+        .eq('user_id', user.id)
         .maybeSingle();
 
       if (error) throw new Error(handleSupabaseError(error));
@@ -149,9 +156,12 @@ export const useEnrollInChallenge = () => {
         };
       }
 
+      const user = await getAuthenticatedUser();
+      
       const { data, error } = await supabase
         .from('challenge_enrollments')
         .insert({
+          user_id: user.id,
           challenge_id: challengeId,
           progress_percentage: 0,
         })
