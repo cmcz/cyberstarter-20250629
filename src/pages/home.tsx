@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code, Shield, Trophy, Users } from 'lucide-react';
+import { ArrowRight, Code, Shield, Trophy, Users, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useFeaturedEvents } from '@/hooks/use-events';
 
 export const HomePage: React.FC = () => {
+  const { data: featuredEvents = [] } = useFeaturedEvents();
+
   return (
     <div className="space-y-16">
       {/* Hero Section */}
@@ -83,6 +86,76 @@ export const HomePage: React.FC = () => {
           </Card>
         </div>
       </section>
+
+      {/* Featured Events Section */}
+      {featuredEvents.length > 0 && (
+        <section className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-secondary-900 mb-4">
+              Featured Events
+            </h2>
+            <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+              Join our upcoming competitions and challenges
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {featuredEvents.map((event) => (
+              <Card key={event.id} className="hover:shadow-lg transition-shadow duration-300">
+                <div className="aspect-video overflow-hidden rounded-t-lg">
+                  <img
+                    src={event.thumbnail_url || 'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=800'}
+                    alt={event.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs rounded-full font-medium">
+                      {event.type.replace('_', ' ')}
+                    </span>
+                    {event.prize_pool && (
+                      <span className="text-success-600 font-semibold text-sm">
+                        ${event.prize_pool.toLocaleString()}
+                      </span>
+                    )}
+                  </div>
+                  <CardTitle className="line-clamp-2">{event.title}</CardTitle>
+                  <CardDescription className="line-clamp-2">
+                    {event.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between text-sm text-secondary-600 mb-4">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="h-4 w-4" />
+                      <span>{new Date(event.start_date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Users className="h-4 w-4" />
+                      <span>{event.participant_count}</span>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full" size="sm">
+                    <Link to={`/events/${event.id}`}>
+                      View Event
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button variant="outline" asChild>
+              <Link to="/events">
+                View All Events
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </section>
+      )}
 
       {/* Stats Section */}
       <section className="bg-secondary-50 py-16">

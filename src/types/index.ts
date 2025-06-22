@@ -200,6 +200,76 @@ export interface WeeklyChallenge {
   updated_at: string;
 }
 
+export interface Event {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail_url?: string;
+  category: EventCategory;
+  type: EventType;
+  difficulty_level: DifficultyLevel;
+  start_date: string;
+  end_date: string;
+  registration_deadline?: string;
+  prize_pool?: number;
+  max_participants?: number;
+  is_active: boolean;
+  is_featured: boolean;
+  tags: string[];
+  rules: string[];
+  requirements: string[];
+  participant_count: number;
+  created_at: string;
+  updated_at: string;
+  organizer_id: string;
+  organizer?: User;
+}
+
+export type EventType = 'weekly_challenge' | 'monthly_competition' | 'hackathon' | 'ctf_tournament' | 'coding_contest';
+export type EventCategory = 
+  | 'cybersecurity' 
+  | 'web-development' 
+  | 'algorithms' 
+  | 'systems-programming' 
+  | 'ai-ml' 
+  | 'blockchain' 
+  | 'mobile-development'
+  | 'devops'
+  | 'data-science'
+  | 'game-development'
+  | 'mixed';
+
+export interface EventParticipant {
+  id: string;
+  event_id: string;
+  user_id: string;
+  user?: User;
+  registered_at: string;
+  status: 'registered' | 'active' | 'completed' | 'disqualified';
+  current_score: number;
+  current_rank: number;
+  last_submission_at?: string;
+  completion_time?: number; // in minutes
+}
+
+export interface EventLeaderboard {
+  event_id: string;
+  participants: EventParticipant[];
+  last_updated: string;
+}
+
+export interface EventSubmission {
+  id: string;
+  event_id: string;
+  participant_id: string;
+  challenge_id?: string;
+  submission_url?: string;
+  submission_text?: string;
+  score: number;
+  submitted_at: string;
+  evaluated_at?: string;
+  feedback?: string;
+}
 export type ChallengeType = 'ctf' | 'make_your_own' | 'algorithm' | 'debugging';
 export type ChallengeCategory = 
   | 'cybersecurity' 

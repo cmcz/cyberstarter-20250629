@@ -16,6 +16,8 @@ import { ChallengesPage } from '@/pages/challenges';
 import { ChallengeDetailPage } from '@/pages/challenge-detail';
 import { DashboardPage } from '@/pages/dashboard';
 import { AccountPage } from '@/pages/account';
+import { EventsPage } from '@/pages/events';
+import { EventDetailPage } from '@/pages/event-detail';
 
 // Import Inter font
 import '@fontsource/inter/400.css';
@@ -39,6 +41,8 @@ function App() {
             <Route path="/challenges" element={<ChallengesPage />} />
             <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
             <Route path="/challenges/:challengeId/lessons/:lessonId" element={<LessonViewerPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/events/:id" element={<EventDetailPage />} />
             
             {/* Protected Routes */}
             <Route

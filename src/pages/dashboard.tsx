@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Trophy, Clock, TrendingUp, Play, CheckCircle } from 'lucide-react';
+import { BookOpen, Trophy, Clock, TrendingUp, Play, CheckCircle, Calendar } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
+import { useUserEventParticipations } from '@/hooks/use-events';
 
 export const DashboardPage: React.FC = () => {
   const { profile } = useAuth();
+  const { data: eventParticipations = [] } = useUserEventParticipations();
 
   // Mock data for dashboard
   const stats = {
@@ -229,6 +231,12 @@ export const DashboardPage: React.FC = () => {
                 <Link to="/challenges">
                   <Trophy className="h-4 w-4 mr-2" />
                   Try Challenges
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-full justify-start" asChild>
+                <Link to="/events">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Join Events
                 </Link>
               </Button>
               <Button variant="outline" className="w-full justify-start" asChild>
