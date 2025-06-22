@@ -941,3 +941,5 @@ export const getChallengeLessonsByModuleId = (moduleId: string): Lesson[] => {
 
 // Environment variable to control mock data usage
 export const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
+  }
+]
