@@ -75,6 +75,56 @@ export interface Lesson {
 
 export type LessonContentType = 'text' | 'video' | 'quiz' | 'code_challenge';
 
+export interface CodeChallenge {
+  id: string;
+  lesson_id: string;
+  title: string;
+  description: string;
+  challenge_type: 'make_your_own' | 'algorithm' | 'debugging';
+  starter_code?: string;
+  test_cases: TestCase[];
+  github_template_repo?: string;
+  submission_requirements: string[];
+  time_limit_minutes?: number;
+  difficulty_level: DifficultyLevel;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TestCase {
+  id: string;
+  name: string;
+  description: string;
+  input?: string;
+  expected_output?: string;
+  test_command: string;
+  points: number;
+  is_hidden: boolean;
+}
+
+export interface CodeSubmission {
+  id: string;
+  user_id: string;
+  challenge_id: string;
+  github_repo_url: string;
+  commit_hash: string;
+  submitted_at: string;
+  status: 'pending' | 'testing' | 'passed' | 'failed' | 'error';
+  test_results?: TestResult[];
+  total_score?: number;
+  feedback?: string;
+}
+
+export interface TestResult {
+  test_case_id: string;
+  test_name: string;
+  passed: boolean;
+  points_earned: number;
+  execution_time_ms?: number;
+  output?: string;
+  error_message?: string;
+}
+
 export interface QuizQuestion {
   id: string;
   lesson_id: string;

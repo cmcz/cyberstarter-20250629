@@ -4,8 +4,10 @@ import { ArrowLeft, ArrowRight, Play, FileText, HelpCircle, Code, CheckCircle, C
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import { CodeChallengeViewer } from '@/components/ui/code-challenge-viewer';
 import { useCourse } from '@/hooks/use-courses';
 import { useEnrollment } from '@/hooks/use-enrollments';
+import { useCodeChallenge, useCodeSubmission, useSubmitCodeChallenge } from '@/hooks/use-code-challenges';
 import { getModulesByCourseId, getLessonsByModuleId, getQuizQuestionsByLessonId } from '@/data/mock-course-content';
 import { useAuth } from '@/hooks/use-auth';
 import type { Lesson, QuizQuestion } from '@/types';
@@ -13,9 +15,15 @@ import type { Lesson, QuizQuestion } from '@/types';
 export const LessonViewerPage: React.FC = () => {
   const { courseId, lessonId } = useParams<{ courseId: string; lessonId: string }>();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { data: course } = useCourse(courseId!);
   const { data: enrollment } = useEnrollment(courseId!);
+  const { data: codeChallenge } = useCodeChallenge(lessonId!);
+  const { data: codeSubmission } = useCodeSubmission(
+    codeChallenge?.id || '', 
+    user?.id || ''
+  );
+  const submitCodeChallengeMutation = useSubmitCodeChallenge();
   const [selectedAnswers, setSelectedAnswers] = React.useState<Record<string, string>>({});
   const [showResults, setShowResults] = React.useState(false);
 
@@ -37,6 +45,15 @@ export const LessonViewerPage: React.FC = () => {
   const quizQuestions = currentLesson?.content_type === 'quiz' 
     ? getQuizQuestionsByLessonId(lessonId!) 
     : [];
+
+  const handleCodeSubmission = (repoUrl: string) => {
+    if (codeChallenge) {
+      submitCodeChallengeMutation.mutate({
+        challengeId: codeChallenge.id,
+        repoUrl,
+      });
+    }
+  };
 
   if (!isAuthenticated || !enrollment) {
     return (
@@ -253,20 +270,29 @@ export const LessonViewerPage: React.FC = () => {
   );
 
   const renderCodeChallengeContent = () => (
-    <div className="space-y-6">
-      <div className="bg-secondary-900 text-secondary-100 p-6 rounded-lg">
-        <div className="flex items-center space-x-2 mb-4">
-          <Code className="h-5 w-5" />
-          <span className="font-medium">Coding Challenge Environment</span>
+    codeChallenge ? (
+      <CodeChallengeViewer
+        challenge={codeChallenge}
+        submission={codeSubmission}
+        onSubmit={handleCodeSubmission}
+        isSubmitting={submitCodeChallengeMutation.isPending}
+      />
+    ) : (
+      <div className="space-y-6">
+        <div className="bg-secondary-900 text-secondary-100 p-6 rounded-lg">
+          <div className="flex items-center space-x-2 mb-4">
+            <Code className="h-5 w-5" />
+            <span className="font-medium">Coding Challenge Environment</span>
+          </div>
+          <p className="text-sm opacity-75">
+            Loading challenge details...
+          </p>
         </div>
-        <p className="text-sm opacity-75">
-          Interactive coding environment would be loaded here
-        </p>
+        {currentLesson.content_text && (
+          <MarkdownRenderer content={currentLesson.content_text} />
+        )}
       </div>
-      {currentLesson.content_text && (
-        <MarkdownRenderer content={currentLesson.content_text} />
-      )}
-    </div>
+    )
   );
 
   const renderLessonContent = () => {
