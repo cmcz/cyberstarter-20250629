@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase, handleSupabaseError } from '@/lib/supabase';
-import { mockCodeChallenges, getMockChallengeByLessonId } from '@/data/mock-code-challenges';
+import { mockCodeChallenges, getCodeChallengesByLessonId } from '@/data/mock-code-challenges';
 import { USE_MOCK_DATA } from '@/data/mock-challenges';
 import { useUIStore } from '@/store/ui-store';
 import type { CodeChallenge, CodeSubmission } from '@/types';
@@ -12,7 +12,8 @@ export const useCodeChallenge = (lessonId: string) => {
       if (USE_MOCK_DATA) {
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 300));
-        return getMockChallengeByLessonId(lessonId) || null;
+        const challenges = getCodeChallengesByLessonId(lessonId);
+        return challenges.length > 0 ? challenges[0] : null;
       }
 
       const { data, error } = await supabase
