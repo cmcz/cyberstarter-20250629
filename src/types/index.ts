@@ -279,6 +279,7 @@ export type ChallengeCategory =
   | 'reverse-engineering' 
   | 'network-security' 
   | 'binary-exploitation'
+  | 'web-development'
   | 'other';
 
 export interface Challenge {
