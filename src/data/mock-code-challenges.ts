@@ -1,321 +1,146 @@
-import type { CodeChallenge, TestCase } from '@/types';
+import type { CodeChallenge } from '@/types';
 
 export const mockCodeChallenges: CodeChallenge[] = [
   {
-    id: 'challenge-shell-1',
-    lesson_id: 'make-your-own-lesson-1',
-    title: 'Build Your Own Shell',
-    description: 'Create a basic Unix shell that can execute commands, handle pipes, and manage processes.',
-    challenge_type: 'make_your_own',
-    starter_code: `#!/bin/bash
-# Shell Implementation Starter Code
-# Implement the following functions:
-
-# Function to parse command line input
-parse_command() {
-    # TODO: Parse the input command and arguments
-    echo "Parsing: $1"
+    id: 'code-challenge-1',
+    lesson_id: 'demo-challenge-lesson-1',
+    title: 'Array Sum Function',
+    description: 'Write a function that calculates the sum of all numbers in an array.',
+    challenge_type: 'algorithm',
+    starter_code: `function arraySum(numbers) {
+  // Your code here
+  // Return the sum of all numbers in the array
 }
 
-# Function to execute commands
-execute_command() {
-    # TODO: Execute the parsed command
-    echo "Executing: $1"
-}
-
-# Main shell loop
-main_loop() {
-    while true; do
-        echo -n "myshell> "
-        read -r input
-        
-        # Exit condition
-        if [[ "$input" == "exit" ]]; then
-            break
-        fi
-        
-        # TODO: Implement command execution
-        parse_command "$input"
-        execute_command "$input"
-    done
-}
-
-# Start the shell
-main_loop`,
-    test_cases: [
-      {
-        id: 'test-basic-commands',
-        name: 'Basic Command Execution',
-        description: 'Test if the shell can execute basic commands like ls, pwd, echo',
-        test_command: 'npm test -- --testNamePattern="basic commands"',
-        points: 25,
-        is_hidden: false,
-      },
-      {
-        id: 'test-pipes',
-        name: 'Pipe Support',
-        description: 'Test if the shell supports piping between commands',
-        test_command: 'npm test -- --testNamePattern="pipe support"',
-        points: 30,
-        is_hidden: false,
-      },
-      {
-        id: 'test-redirection',
-        name: 'I/O Redirection',
-        description: 'Test input/output redirection functionality',
-        test_command: 'npm test -- --testNamePattern="redirection"',
-        points: 25,
-        is_hidden: true,
-      },
-      {
-        id: 'test-background-processes',
-        name: 'Background Processes',
-        description: 'Test ability to run processes in background',
-        test_command: 'npm test -- --testNamePattern="background"',
-        points: 20,
-        is_hidden: true,
-      },
-    ],
-    github_template_repo: 'https://github.com/learnhub-templates/shell-challenge',
+// Test cases:
+// arraySum([1, 2, 3, 4, 5]) should return 15
+// arraySum([]) should return 0
+// arraySum([-1, 1, -2, 2]) should return 0`,
     submission_requirements: [
-      'Implement a working shell in your preferred language (C, Python, Bash, etc.)',
-      'Include a README.md with build and run instructions',
-      'Add comprehensive test cases',
-      'Handle basic commands, pipes, and I/O redirection',
-      'Implement proper error handling',
+      'Function must handle empty arrays',
+      'Function must work with negative numbers',
+      'Function must return a number',
+      'All test cases must pass'
     ],
-    time_limit_minutes: 180,
-    difficulty_level: 'advanced',
-    created_at: '2024-01-20T10:00:00Z',
-    updated_at: '2024-01-20T10:00:00Z',
+    time_limit_minutes: 30,
+    difficulty_level: 'beginner',
+    created_at: '2024-01-03T10:00:00Z',
+    updated_at: '2024-01-03T10:00:00Z',
   },
   {
-    id: 'challenge-http-server-1',
-    lesson_id: 'make-your-own-lesson-2',
-    title: 'Build Your Own HTTP Server',
-    description: 'Create a basic HTTP server that can handle GET/POST requests, serve static files, and implement basic routing.',
-    challenge_type: 'make_your_own',
-    starter_code: `// HTTP Server Implementation Starter Code
-const net = require('net');
-const fs = require('fs');
-const path = require('path');
-
-class HTTPServer {
-    constructor(port = 8080) {
-        this.port = port;
-        this.routes = new Map();
-    }
-
-    // TODO: Implement HTTP request parsing
-    parseRequest(data) {
-        // Parse HTTP request headers and body
-        return {
-            method: '',
-            path: '',
-            headers: {},
-            body: ''
-        };
-    }
-
-    // TODO: Implement HTTP response formatting
-    formatResponse(statusCode, headers, body) {
-        // Format HTTP response with proper headers
-        return '';
-    }
-
-    // TODO: Implement route handling
-    addRoute(method, path, handler) {
-        // Add route handler
-    }
-
-    // TODO: Implement static file serving
-    serveStaticFile(filePath) {
-        // Serve static files from filesystem
-    }
-
-    // Start the server
-    start() {
-        const server = net.createServer((socket) => {
-            socket.on('data', (data) => {
-                // TODO: Handle incoming HTTP requests
-                const request = this.parseRequest(data.toString());
-                // Process request and send response
-            });
-        });
-
-        server.listen(this.port, () => {
-            console.log(\`Server running on port \${this.port}\`);
-        });
-    }
+    id: 'code-challenge-2',
+    lesson_id: 'demo-challenge-lesson-1',
+    title: 'Find Maximum Value',
+    description: 'Implement a function that finds the maximum value in an array without using Math.max().',
+    challenge_type: 'algorithm',
+    starter_code: `function findMax(numbers) {
+  // Your code here
+  // Find and return the maximum value in the array
+  // Do not use Math.max() or similar built-in functions
 }
 
-// Example usage
-const server = new HTTPServer(8080);
-server.addRoute('GET', '/', (req, res) => {
-    return { statusCode: 200, body: 'Hello World!' };
-});
-server.start();`,
-    test_cases: [
-      {
-        id: 'test-basic-get',
-        name: 'Basic GET Requests',
-        description: 'Test if server handles basic GET requests',
-        test_command: 'npm test -- --testNamePattern="GET requests"',
-        points: 20,
-        is_hidden: false,
-      },
-      {
-        id: 'test-post-requests',
-        name: 'POST Request Handling',
-        description: 'Test POST request parsing and handling',
-        test_command: 'npm test -- --testNamePattern="POST requests"',
-        points: 25,
-        is_hidden: false,
-      },
-      {
-        id: 'test-static-files',
-        name: 'Static File Serving',
-        description: 'Test serving static HTML, CSS, JS files',
-        test_command: 'npm test -- --testNamePattern="static files"',
-        points: 25,
-        is_hidden: false,
-      },
-      {
-        id: 'test-routing',
-        name: 'Dynamic Routing',
-        description: 'Test dynamic route handling with parameters',
-        test_command: 'npm test -- --testNamePattern="routing"',
-        points: 30,
-        is_hidden: true,
-      },
-    ],
-    github_template_repo: 'https://github.com/learnhub-templates/http-server-challenge',
+// Test cases:
+// findMax([1, 5, 3, 9, 2]) should return 9
+// findMax([-1, -5, -3]) should return -1
+// findMax([42]) should return 42`,
     submission_requirements: [
-      'Implement HTTP server from scratch (no Express/frameworks)',
-      'Handle GET and POST requests',
-      'Serve static files with proper MIME types',
-      'Implement basic routing system',
-      'Include comprehensive tests',
-      'Add proper error handling and status codes',
+      'Cannot use Math.max() or similar built-in functions',
+      'Must handle arrays with negative numbers',
+      'Must handle single-element arrays',
+      'Function must return the correct maximum value'
     ],
-    time_limit_minutes: 240,
-    difficulty_level: 'advanced',
-    created_at: '2024-01-22T14:00:00Z',
-    updated_at: '2024-01-22T14:00:00Z',
+    time_limit_minutes: 25,
+    difficulty_level: 'beginner',
+    created_at: '2024-01-03T10:30:00Z',
+    updated_at: '2024-01-03T10:30:00Z',
   },
   {
-    id: 'challenge-database-1',
-    lesson_id: 'make-your-own-lesson-3',
-    title: 'Build Your Own Database',
-    description: 'Create a simple key-value database with persistence, indexing, and basic query capabilities.',
-    challenge_type: 'make_your_own',
-    starter_code: `# Database Implementation Starter Code
-import json
-import os
-from typing import Any, Dict, List, Optional
+    id: 'code-challenge-3',
+    lesson_id: 'demo-challenge-lesson-1',
+    title: 'String Reversal',
+    description: 'Create a function that reverses a string without using built-in reverse methods.',
+    challenge_type: 'algorithm',
+    starter_code: `function reverseString(str) {
+  // Your code here
+  // Reverse the string without using built-in reverse methods
+}
 
-class SimpleDB:
-    def __init__(self, db_path: str = "database.json"):
-        self.db_path = db_path
-        self.data: Dict[str, Any] = {}
-        self.indexes: Dict[str, Dict[Any, List[str]]] = {}
-        self.load_data()
-
-    def load_data(self):
-        """Load data from persistent storage"""
-        # TODO: Implement data loading from file
-        pass
-
-    def save_data(self):
-        """Save data to persistent storage"""
-        # TODO: Implement data persistence
-        pass
-
-    def put(self, key: str, value: Any) -> bool:
-        """Store a key-value pair"""
-        # TODO: Implement data insertion
-        pass
-
-    def get(self, key: str) -> Optional[Any]:
-        """Retrieve value by key"""
-        # TODO: Implement data retrieval
-        pass
-
-    def delete(self, key: str) -> bool:
-        """Delete a key-value pair"""
-        # TODO: Implement data deletion
-        pass
-
-    def create_index(self, field_name: str):
-        """Create an index on a field for faster queries"""
-        # TODO: Implement indexing
-        pass
-
-    def query(self, conditions: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Query data with conditions"""
-        # TODO: Implement querying with conditions
-        pass
-
-    def transaction(self, operations: List[Dict[str, Any]]) -> bool:
-        """Execute multiple operations atomically"""
-        # TODO: Implement transaction support
-        pass
-
-# Example usage
-db = SimpleDB("mydb.json")
-db.put("user:1", {"name": "Alice", "age": 30})
-user = db.get("user:1")
-print(user)`,
-    test_cases: [
-      {
-        id: 'test-basic-operations',
-        name: 'Basic CRUD Operations',
-        description: 'Test put, get, delete operations',
-        test_command: 'python -m pytest tests/test_basic_operations.py',
-        points: 25,
-        is_hidden: false,
-      },
-      {
-        id: 'test-persistence',
-        name: 'Data Persistence',
-        description: 'Test data persistence across restarts',
-        test_command: 'python -m pytest tests/test_persistence.py',
-        points: 25,
-        is_hidden: false,
-      },
-      {
-        id: 'test-indexing',
-        name: 'Indexing System',
-        description: 'Test index creation and query performance',
-        test_command: 'python -m pytest tests/test_indexing.py',
-        points: 25,
-        is_hidden: true,
-      },
-      {
-        id: 'test-transactions',
-        name: 'Transaction Support',
-        description: 'Test atomic operations and rollback',
-        test_command: 'python -m pytest tests/test_transactions.py',
-        points: 25,
-        is_hidden: true,
-      },
-    ],
-    github_template_repo: 'https://github.com/learnhub-templates/database-challenge',
+// Test cases:
+// reverseString("hello") should return "olleh"
+// reverseString("") should return ""
+// reverseString("a") should return "a"
+// reverseString("JavaScript") should return "tpircSavaJ"`,
     submission_requirements: [
-      'Implement basic CRUD operations (Create, Read, Update, Delete)',
-      'Add data persistence to disk',
-      'Implement indexing for faster queries',
-      'Add transaction support with rollback',
-      'Include comprehensive test suite',
-      'Handle concurrent access safely',
+      'Cannot use built-in reverse methods',
+      'Must handle empty strings',
+      'Must handle single character strings',
+      'Function must return a string'
     ],
-    time_limit_minutes: 300,
-    difficulty_level: 'advanced',
-    created_at: '2024-01-25T09:00:00Z',
-    updated_at: '2024-01-25T09:00:00Z',
+    time_limit_minutes: 20,
+    difficulty_level: 'beginner',
+    created_at: '2024-01-03T11:00:00Z',
+    updated_at: '2024-01-03T11:00:00Z',
+  },
+  {
+    id: 'code-challenge-4',
+    lesson_id: 'demo-challenge-lesson-1',
+    title: 'Palindrome Checker',
+    description: 'Write a function that checks if a given string is a palindrome (reads the same forwards and backwards).',
+    challenge_type: 'algorithm',
+    starter_code: `function isPalindrome(str) {
+  // Your code here
+  // Return true if the string is a palindrome, false otherwise
+  // Consider only alphanumeric characters and ignore case
+}
+
+// Test cases:
+// isPalindrome("racecar") should return true
+// isPalindrome("hello") should return false
+// isPalindrome("A man a plan a canal Panama") should return true
+// isPalindrome("") should return true`,
+    submission_requirements: [
+      'Must ignore spaces and punctuation',
+      'Must be case-insensitive',
+      'Must handle empty strings',
+      'Function must return a boolean'
+    ],
+    time_limit_minutes: 35,
+    difficulty_level: 'intermediate',
+    created_at: '2024-01-03T11:30:00Z',
+    updated_at: '2024-01-03T11:30:00Z',
+  },
+  {
+    id: 'code-challenge-5',
+    lesson_id: 'demo-challenge-lesson-1',
+    title: 'FizzBuzz Implementation',
+    description: 'Implement the classic FizzBuzz problem: print numbers 1 to n, but replace multiples of 3 with "Fizz", multiples of 5 with "Buzz", and multiples of both with "FizzBuzz".',
+    challenge_type: 'algorithm',
+    starter_code: `function fizzBuzz(n) {
+  // Your code here
+  // Return an array with FizzBuzz sequence from 1 to n
+}
+
+// Test cases:
+// fizzBuzz(15) should return:
+// [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]`,
+    submission_requirements: [
+      'Must return an array',
+      'Multiples of 3 should be "Fizz"',
+      'Multiples of 5 should be "Buzz"',
+      'Multiples of both 3 and 5 should be "FizzBuzz"',
+      'All other numbers should remain as numbers'
+    ],
+    time_limit_minutes: 25,
+    difficulty_level: 'beginner',
+    created_at: '2024-01-03T12:00:00Z',
+    updated_at: '2024-01-03T12:00:00Z',
   },
 ];
 
-export const getMockChallengeByLessonId = (lessonId: string): CodeChallenge | undefined => {
-  return mockCodeChallenges.find(challenge => challenge.lesson_id === lessonId);
+// Helper function to get code challenges by lesson ID
+export const getCodeChallengesByLessonId = (lessonId: string): CodeChallenge[] => {
+  return mockCodeChallenges.filter(challenge => challenge.lesson_id === lessonId);
 };
+
+// Environment variable to control mock data usage
+export const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
