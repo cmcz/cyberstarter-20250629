@@ -4,8 +4,6 @@ import { useAuthStore } from '@/store/auth-store';
 import type { Challenge, Module, Lesson } from '@/types';
 import { 
   mockChallenges, 
-  challengeModules, 
-  challengeLessons, 
   getChallengeModulesByChallengeId, 
   getChallengeLessonsByModuleId, 
   USE_MOCK_DATA 

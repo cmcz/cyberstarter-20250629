@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase, handleSupabaseError } from '@/lib/supabase';
-import { mockCodeChallenges, getCodeChallengesByLessonId } from '@/data/mock-code-challenges';
+import { getCodeChallengesByLessonId } from '@/data/mock-code-challenges';
 import { USE_MOCK_DATA } from '@/data/mock-challenges';
 import { useUIStore } from '@/store/ui-store';
 import type { CodeChallenge, CodeSubmission } from '@/types';

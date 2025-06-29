@@ -61,7 +61,7 @@ export const mockCourses: Course[] = [
     description: 'Introduction to machine learning algorithms, supervised and unsupervised learning.',
     thumbnail_url: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
     instructor_id: 'instructor-4',
-    category: 'machine-learning',
+    category: 'ai-ml',
     type: 'lecture',
     difficulty_level: 'intermediate',
     duration_hours: 30,
