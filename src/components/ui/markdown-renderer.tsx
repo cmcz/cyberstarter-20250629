@@ -4,11 +4,17 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import { clsx } from 'clsx';
-import type { Components, CodeProps } from 'react-markdown';
+import type { Components } from 'react-markdown';
 
 interface MarkdownRendererProps {
   content: string;
   className?: string;
+}
+
+interface CodeProps {
+  inline?: boolean;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ 

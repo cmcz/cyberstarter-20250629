@@ -267,6 +267,44 @@ useEffect(() => {
   },
 ];
 
+// React course quiz questions
+export const reactQuizQuestions: QuizQuestion[] = [
+  {
+    id: 'react-quiz-1',
+    lesson_id: 'react-lesson-3',
+    question: 'What are props in React?',
+    type: 'multiple_choice',
+    options: [
+      'Properties passed from parent to child components',
+      'Internal component state variables',
+      'CSS styling properties',
+      'JavaScript functions'
+    ],
+    correct_answer: 'Properties passed from parent to child components',
+    explanation: 'Props (short for properties) are read-only data passed from parent components to child components.',
+    order_index: 1,
+  },
+  {
+    id: 'react-quiz-2',
+    lesson_id: 'react-lesson-3',
+    question: 'Which hook is used to manage state in functional components?',
+    type: 'multiple_choice',
+    options: ['useEffect', 'useState', 'useContext', 'useReducer'],
+    correct_answer: 'useState',
+    explanation: 'The useState hook is the primary way to add state to functional components in React.',
+    order_index: 2,
+  },
+  {
+    id: 'react-quiz-3',
+    lesson_id: 'react-lesson-3',
+    question: 'Props can be modified by child components.',
+    type: 'true_false',
+    correct_answer: 'false',
+    explanation: 'Props are read-only and cannot be modified by child components. They can only be changed by the parent component.',
+    order_index: 3,
+  },
+];
+
 // Mock content for Full-Stack E-commerce App (Course ID: 3)
 export const ecommerceCourseModules: Module[] = [
   {
