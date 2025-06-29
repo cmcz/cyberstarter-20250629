@@ -93,6 +93,7 @@ export interface CodeChallenge {
 
 export interface TestCase {
   id: string;
+  challenge_id: string;
   name: string;
   description: string;
   input?: string;

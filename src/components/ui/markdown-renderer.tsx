@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import { clsx } from 'clsx';
-import type { Components } from 'react-markdown';
+import type { Components, CodeProps } from 'react-markdown';
 
 interface MarkdownRendererProps {
   content: string;
@@ -58,7 +58,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       <li className="ml-4">{children}</li>
     ),
     // Custom code styles
-    code: ({ inline, children, className }) => {
+    code: ({ inline, children, className }: CodeProps) => {
       if (inline) {
         return (
           <code className="bg-secondary-100 text-secondary-800 px-1.5 py-0.5 rounded text-sm font-mono">
