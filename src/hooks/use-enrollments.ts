@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase, handleSupabaseError, getAuthenticatedUser } from '@/lib/supabase';
 import { useUIStore } from '@/store/ui-store';
-import { mockCourses, USE_MOCK_DATA } from '@/data/mock-courses';
+import { mockCourses } from '@/data/mock-courses';
+import { USE_MOCK_DATA } from '@/data/mock-challenges';
 import type { Enrollment } from '@/types';
 
 export const useEnrollments = () => {
