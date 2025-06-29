@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
-import type { CodeChallenge, CodeSubmission, TestResult } from '@/types';
+import type { CodeChallenge, CodeSubmission } from '@/types';
 
 interface CodeChallengeViewerProps {
   challenge: CodeChallenge;

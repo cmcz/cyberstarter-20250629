@@ -6,6 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
+  asChild?: boolean;
   children: React.ReactNode;
 }
 
@@ -16,6 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     size = 'md', 
     loading = false, 
     disabled,
+    asChild,
     children, 
     ...props 
   }, ref) => {
@@ -34,6 +36,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       md: 'px-4 py-2 text-sm',
       lg: 'px-6 py-3 text-base',
     };
+
+    if (asChild) {
+      return React.cloneElement(children as React.ReactElement, {
+        className: clsx(
+          baseClasses,
+          variants[variant],
+          sizes[size],
+          className
+        ),
+        ...props,
+      });
+    }
 
     return (
       <button
