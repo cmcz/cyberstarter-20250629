@@ -87,24 +87,6 @@ export const mockChallenges: Challenge[] = [
     enrollment_count: 1250,
     rating: 4.7,
   },
-  // Demo challenge
-  {
-    id: 'demo-challenge-1',
-    title: 'JavaScript Fundamentals Challenge',
-    description: 'Test your JavaScript knowledge with practical coding exercises. Build functions, work with arrays, and solve real-world problems.',
-    thumbnail_url: 'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800',
-    instructor_id: '88888888-8888-8888-8888-888888888888',
-    category: 'web-development',
-    type: 'algorithm',
-    difficulty_level: 'beginner',
-    duration_hours: 4,
-    is_published: true,
-    tags: ['javascript', 'algorithms', 'functions', 'arrays', 'beginner'],
-    created_at: '2024-01-03T10:00:00Z',
-    updated_at: '2024-01-03T10:00:00Z',
-    enrollment_count: 1250,
-    rating: 4.7,
-  },
 ];
 
 // Challenge modules (moved from course content)
@@ -928,6 +910,30 @@ Create a function called \`arraySum\` that takes an array of numbers as input an
 ## Examples
 \`\`\`javascript
 arraySum([1, 2, 3, 4, 5]) // Should return 15
+arraySum([]) // Should return 0
+arraySum([10, -5, 3]) // Should return 8
+\`\`\`
+
+## Your Task
+Write the function and test it with the provided examples.
+
+## Starter Code
+\`\`\`javascript
+function arraySum(numbers) {
+  // Your code here
+}
+
+// Test cases
+console.log(arraySum([1, 2, 3, 4, 5])); // Expected: 15
+console.log(arraySum([])); // Expected: 0
+console.log(arraySum([10, -5, 3])); // Expected: 8
+\`\`\``,
+    duration_minutes: 15,
+    order_index: 1,
+    is_published: true,
+    created_at: '2024-01-03T10:00:00Z',
+    updated_at: '2024-01-03T10:00:00Z',
+  },
 ];
 
 // Helper functions
@@ -941,5 +947,3 @@ export const getChallengeLessonsByModuleId = (moduleId: string): Lesson[] => {
 
 // Environment variable to control mock data usage
 export const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
-  }
-]
